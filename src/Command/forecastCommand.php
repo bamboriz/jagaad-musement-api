@@ -41,12 +41,8 @@ class forecastCommand extends Command
 
         $cityForecasts = [];
         $count = 0;
-        $response = $this->client->request(
-            'GET',
-            'https://api.musement.com/api/v3/cities.json'
-        );
-
-        $cities = json_decode($response->getContent());
+        
+        $cities = $this->getMusementCities();
 
         foreach ($cities as $city) {
 
@@ -71,5 +67,16 @@ class forecastCommand extends Command
         $io->success($count.' cities processed');
 
         return Command::SUCCESS;
+    }
+
+    public function getMusementCities()
+    {
+        $response = $this->client->request(
+            'GET',
+            'https://api.musement.com/api/v3/cities.json'
+        );
+
+        $cities = json_decode($response->getContent());
+        return $cities;
     }
 }
