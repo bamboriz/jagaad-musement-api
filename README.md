@@ -47,9 +47,9 @@ Assumption: Only Forecasts for 7 days are available (includes current day)
             }
 ```
 ### Sample API calls
-> Weather in Amsterdam today (Friday) : api/v3/cities/{57}/forecasts?day=1
-> Weather in Paris tomorrow (Saturday) : api/v3/cities/{57}/forecasts?day=1
-> Weather in Paris on Sunday: api/v3/cities/{57}/forecasts?day=3
+- Weather in Amsterdam today (Friday) : api/v3/cities/{57}/forecasts?day=1
+- Weather in Paris tomorrow (Saturday) : api/v3/cities/{57}/forecasts?day=1
+- Weather in Paris on Sunday: api/v3/cities/{57}/forecasts?day=3
 
 ## Running Tests
 Tests wriiten with help of php-unit and can be run with the following command.
