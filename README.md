@@ -1,11 +1,15 @@
 # JAGAAD MUSEMENT API
 This is an API design test for JAGAAD. Code is build with PHP 7.4 and powered by Symfony 5.1.
 ## Running locally:
-To run this locally, you just need Docker installed.
-- cd into project directory and run "docker-compose up -d" to spin up a container
+To run this locally, you just need Composer & Docker installed. 
+- clone repo from git and cd into project directory
+-  install dependencies with "composer install" and run "docker-compose up -d" to spin up a container (docker should be running)
 - Access Container CLI via Docker app or by running "docker-exec -it"
 - Start up local server by running "symfony server:start -d"
 ```sh
+$ git clone [url]
+$ cd /jagaad-musement-api
+$ composer install
 $ docker-compose up -d"
 $ docker-exec -it
 $ symfony server:start -d
