@@ -17,11 +17,12 @@ class forecastCommand extends Command
     protected static $defaultName = 'city:daily-forecasts';
 
     private $client;
-    private $API_KEY = 'b0c15af9056e4252a4a85207201111';
+    private $API_KEY;
 
     public function __construct(HttpClientInterface $client)
     {
         $this->client = $client;
+        $this->API_KEY = $_ENV['API_KEY'];
         parent::__construct();
     }
 
@@ -41,11 +42,9 @@ class forecastCommand extends Command
 
         $cityForecasts = [];
         $count = 0;
-        
         $cities = $this->getMusementCities();
 
         foreach ($cities as $city) {
-
             //if ($count > 30) break;
 
             $response = $this->client->request(
@@ -54,7 +53,6 @@ class forecastCommand extends Command
             );
 
             $forecastData = json_decode($response->getContent())->forecast->forecastday;
-            
             $today = $forecastData[0]->day->condition->text;
             $tomorrow = $forecastData[1]->day->condition->text;
 
@@ -65,11 +63,10 @@ class forecastCommand extends Command
         }
 
         $io->success($count.' cities processed');
-
         return Command::SUCCESS;
     }
 
-    public function getMusementCities()
+    protected function getMusementCities()
     {
         $response = $this->client->request(
             'GET',

@@ -36,7 +36,6 @@ class ForecastController extends AbstractController
             'GET',
             'https://api.musement.com/api/v3/cities.json'
         );
-
         //$cities = new JsonResponse($response->getContent());
         return new Response($response->getContent());
     }
