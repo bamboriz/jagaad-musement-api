@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Command;
+namespace App\Service;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -10,7 +10,7 @@ class MusementCities
     private $cities;
     private $api;
 
-    public function __construct(HttpClientInterface $client, WeatherApi $api)
+    public function __construct(HttpClientInterface $client, WeatherService $api)
     {
         $this->client = $client;
         $this->api = $api;
@@ -30,9 +30,8 @@ class MusementCities
         foreach ($this->cities as $city) {
 
             $response = $this->api->getCityForecast($city->latitude, $city->longitude);
-            $forecastData = json_decode($response->getContent())->forecast->forecastday;
-            $today = $forecastData[0]->day->condition->text;
-            $tomorrow = $forecastData[1]->day->condition->text;
+            $today = $response[0];
+            $tomorrow = $response[1];
 
             $cityForecasts[] = array("city" => $city->name, "lat"=> $city->latitude, "lon"=> $city->longitude, "today"=> $today, "tomorrow"=>  $tomorrow);
             

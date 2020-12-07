@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-use App\Command\MusementCities;
+use App\Service\MusementCities;
 
 class forecastCommand extends Command
 {
@@ -41,12 +41,18 @@ class forecastCommand extends Command
         $cityForecasts = [];
         $this->musementCities->get();
         $cityForecasts = $this->musementCities->processCities();
+        $prints = $this->displayForecasts($cityForecasts, $output);
+
+        $io->success($prints.' cities processed');
+        return Command::SUCCESS;
+    }
+
+    private function displayForecasts(array $cityForecasts, OutputInterface $output):int
+    {
         foreach ($cityForecasts as $forecast) {
             $output->writeln("Processed city {$forecast['city']} | {$forecast['today']} - {$forecast['tomorrow']}");
         }
-
-        $io->success(count($cityForecasts).' cities processed');
-        return Command::SUCCESS;
+        return count($cityForecasts);
     }
 
 }
